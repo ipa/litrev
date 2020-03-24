@@ -1,0 +1,4 @@
+*.sqlite3
+backup.json
+failed_ids.txt
+__pycache__/

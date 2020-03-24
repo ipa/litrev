@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<h1>Export</h1>
+
+<p>
+  <a href="{% url 'tagging:export_csv' %}" class="btn btn-primary " role="button" >Export to CSV</a>
+</p>
+<p>
+  <a href="{% url 'tagging:export_mendeley' %}" class="btn btn-danger " role="button" >Export to Mendeley</a>
+</p>
+
+{% endblock %}

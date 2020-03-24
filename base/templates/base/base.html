@@ -1,0 +1,36 @@
+{% extends 'base/bootstrap.html' %}
+
+{% load bootstrap4 %}
+
+{% block bootstrap4_content %}
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">
+            <img src="/static/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            {% block title %}Litrev{% endblock %}
+          </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'screening:index' %}">Screening</a>
+                    </li>
+                    <li>
+                      <a class="nav-link" href="{% url 'tagging:index' %}">Tagging</a>
+                    </li>
+                    <li>
+                      <a class="nav-link" href="{% url 'tagging:export' %}">Export</a>
+                    </li>
+                    <li>
+                      <a class="nav-link" href="/admin/">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <h1></h1>
+
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+        {% block content %}(no content){% endblock %}
+    </div>
+
+{% endblock %}

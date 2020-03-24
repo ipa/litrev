@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<h1>Tagging</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+    {{ articles_tagged }} / {{ articles_total }} ({{ progress }}%)
+  </div>
+</div>
+
+<table class="table" style="width:100%">
+  <tr>
+    <th scope="row" width="15%">Tag article {{ article.id }}</th>
+    <td>
+      <table class="table table-sm table-borderless">
+      {% for tg in available_tags %}
+          <tr>
+            <th>{{ tg.group_name }}</th>
+            <td>
+            {% for t in tg.tags %}
+              <a href="{% url 'tagging:tag_article' article.id t.tag_id %}" class="btn {% if t.tagged %} btn-success {% else %} btn-secondary {% endif %}" role="button" >{{ t.tag_name }}</a>
+            {% endfor %}
+            </td>
+          </tr>
+      {% endfor %}
+      <br/>
+      <!--
+      <a href="{% url 'screening:process_article' article.id 'maybe' %}" class="btn btn-secondary" role="button" >Maybe</a>
+      <a href="{% url 'screening:process_article' article.id 'reject' %}" class="btn btn-danger" role="button" >No</a> -->
+      <tr>
+        <td><a href="{% url 'tagging:index' %}" class="btn btn-primary" role="button" >Next</a></td>
+        <td></td>
+      </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <th scope="row">Title</th>
+    <td>{{ article.title|safe }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Authors</th>
+    <td>{{ article.authors }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Date</th>
+    <td>{{ article.pub_date|date:"Y-M-d" }}</td>
+  </tr>
+  <tr>
+    <th scope="row">URL</th>
+    <td><a href="{{ article.url }}" target="_blank">{{ article.url }}</a></td>
+  <tr>
+    <th scope="row">Abstract</th>
+    <td>
+      <p>{{ article.abstract|safe }}</p>
+    </td>
+  </tr>
+
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+[
+  {
+    "model": "tagging.taggroup",
+    "pk": 1,
+    "fields": {
+      "group_name": "None"
+    }
+  }
+]
