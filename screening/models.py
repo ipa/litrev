@@ -20,6 +20,7 @@ class PubmedImportedArticle(models.Model):
     abstract = models.TextField()
     screened = models.BooleanField()
     tagged = models.BooleanField()
+    landmark = models.BooleanField()
 
     def __str__(self):
         return self.title

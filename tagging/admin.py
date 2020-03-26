@@ -15,3 +15,7 @@ class ArticleTagAdmin(admin.ModelAdmin):
 @admin.register(TagGroup)
 class TagGroupAdmin(admin.ModelAdmin):
     list_display = ['id', 'group_name', 'enabled']
+
+@admin.register(Highlight)
+class HighlightAdmin(admin.ModelAdmin):
+    list_display = ['id', 'keyword', 'css_class']

@@ -21,3 +21,7 @@ class Tag(models.Model):
 class ArticleTag(models.Model):
     article = models.ForeignKey(PubmedImportedArticle, on_delete=models.PROTECT)
     tag = models.ForeignKey(Tag, on_delete=models.PROTECT)
+
+class Highlight(models.Model):
+    keyword = models.CharField(max_length = 30)
+    css_class = models.CharField(max_length = 30)

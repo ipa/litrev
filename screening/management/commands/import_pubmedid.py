@@ -1,7 +1,5 @@
 import os
-import pandas as pd
 import numpy as np
-from tqdm import tqdm
 from datetime import datetime
 import pytz
 from pubmed_lookup import PubMedLookup, Publication
@@ -14,8 +12,7 @@ class Command(BaseCommand):
     help = ''
 
     def add_arguments(self, parser):
-        parser.add_argument('-p', '--path', type=str, help='Path to the file')
-        parser.add_argument('-sf', '--search_function', type=str, help='path to search function')
+        parser.add_argument('-p', '--pmid', type=str, help='Pubmed id')
 
     def get_int(self, number):
         result = 1
@@ -26,29 +23,20 @@ class Command(BaseCommand):
         return result
 
     def handle(self, *args, **options):
-        print('importing {0}'.format(options['path']))
+        print('importing {0}'.format(options['pmid']))
 
-        file = os.path.normpath(options['path'])
-        df = pd.read_csv(file)
-
-        with open (options['search_function'], "r") as sf_file:
-            search_function = sf_file.readlines()
+        pmid = options['pmid']
 
         import_record = PubmedImport()
         import_record.import_date = timezone.now()
-        import_record.search_function = search_function
+        import_record.search_function = pmid
         import_record.save()
         import_id = import_record.id
 
-        failed_ids = list()
-
-        for index, record in tqdm(df.iterrows(), total=df.shape[0]):
-            pmid = record['Db']
-
-            find_pmid = PubmedImportedArticle.objects.filter(pmid=pmid)
-            if len(find_pmid) > 0:
-                continue
-
+        find_pmid = PubmedImportedArticle.objects.filter(pmid=pmid)
+        if len(find_pmid) > 0:
+            print('{0} already exists'.format(pmid))
+        else:
             try:
                 email = ''
                 url = 'http://www.ncbi.nlm.nih.gov/pubmed/{0}'.format(pmid)
@@ -69,12 +57,11 @@ class Command(BaseCommand):
                 pia.pubmed_url = publication.pubmed_url
                 pia.abstract = repr(publication.abstract)
                 pia.screened = False
+                pia.tagged = False
+                pia.landmark = False
                 pia.pmimport = import_record
                 pia.save()
             except:
                 print('\nPMID {0} failed'.format(pmid))
-                failed_ids.append(pmid)
-                np.savetxt('failed_ids.txt', np.asarray(failed_ids), fmt='%d')
 
         print('finished')
-        np.savetxt(np.asarray(pmid))

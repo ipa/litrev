@@ -5,34 +5,29 @@
 
 <h1>Tagging</h1>
 
-<div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
-    {{ articles_tagged }} / {{ articles_total }} ({{ progress }}%)
-  </div>
-</div>
-
 <table class="table" style="width:100%">
   <tr>
     <th scope="row" width="15%">Tag article {{ article.id }}</th>
     <td>
       <table class="table table-sm table-borderless">
-      {% for tg in available_tags %}
-          <tr>
-            <th>{{ tg.group_name }}</th>
-            <td>
-            {% for t in tg.tags %}
-              <a href="{% url 'tagging:tag_article' article.id t.tag_id %}" class="btn {% if t.tagged %} btn-success {% else %} btn-secondary {% endif %}" role="button" >{{ t.tag_name }}</a>
+        <tr>
+          <th></th>
+          <td>
+            {% for t in tags %}
+              <a href="" class="btn btn-secondary" role="button" >{{ t.tag.tag_name }}</a>
             {% endfor %}
-            </td>
-          </tr>
-      {% endfor %}
+          </td>
+        </tr>
       <br/>
       <!--
       <a href="{% url 'screening:process_article' article.id 'maybe' %}" class="btn btn-secondary" role="button" >Maybe</a>
       <a href="{% url 'screening:process_article' article.id 'reject' %}" class="btn btn-danger" role="button" >No</a> -->
       <tr>
-        <td><a href="{% url 'tagging:index' %}" class="btn btn-primary" role="button" >Next</a></td>
-        <td><a href="{% url 'tagging:mark_irrelevant' article.id %}" class="btn btn-warning" role="button" >Irrelevant</a></td>
+        <td></td>
+        <td>
+          <a href="{% url 'tagging:view_tags' prev_idx %}" class="btn btn-primary" role="button" >Previous</a>
+          <a href="{% url 'tagging:view_tags' next_idx %}" class="btn btn-primary" role="button" >Next</a>
+        </td>
       </tr>
       </table>
     </td>

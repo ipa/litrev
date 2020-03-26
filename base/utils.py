@@ -21,7 +21,7 @@ def build_mendeley_xml_response(data, filename='export.xml'):
 
     for d in data:
         record = ET.SubElement(records, 'record')
-        print(d)
+
         accession_num = ET.SubElement(record, 'accession-num')
         accession_num.text = d['pmid']
         titles = ET.SubElement(record, 'titles')
@@ -29,6 +29,9 @@ def build_mendeley_xml_response(data, filename='export.xml'):
         title.text = d['title']
         label = ET.SubElement(record, 'label')
         label.text = d['tags']
+        rev_type = ET.SubElement(record, 'ref-type')
+        rev_type.set('name', 'Journal Article')
+        rev_type.text = 0
 
     # create a new XML file with the results
     data_str = ET.tostring(xml_data)

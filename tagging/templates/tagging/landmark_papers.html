@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<h1>Landmark papers</h1>
+
+<form class="form-inline" action="{% url 'tagging:landmark_papers' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group mx-sm-3  mb-2">
+    <label for="pmid" class="sr-only">PMID: </label>
+    <input id="pmid" type="text" name="pmid" class="form-control" placeholder="PubMed ID"/>
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Landmark</button>
+</form>
+
+
+<table class="table" style="width:100%">
+  <thead>
+    <td>ID</td>
+    <td>PMID</td>
+    <td>Title</td>
+    <td>Year</td>
+  </thead>
+  {% for article in articles %}
+    <tr>
+      <td>{{ article.id }}</td>
+      <td>{{ article.pmid }}</td>
+      <td>{{ article.title }}</td>
+      <td>{{ article.pub_date|date:"Y" }}</td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}
