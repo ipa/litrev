@@ -76,8 +76,9 @@ def index(request, id=-1):
 
 
 def view_tags(request, article_id=0):
-    tagged_articles = PubmedImportedArticle.objects.filter(tagged=True).order_by('pmid')
-    article = tagged_articles[article_id]
+    # tagged_articles = PubmedImportedArticle.objects.filter(tagged=True).order_by('pmid')
+    # article = tagged_articles[article_id]
+    article = PubmedImportedArticle.objects.get(pmid=article_id)
 
     tags = ArticleTag.objects.filter(article_id = article.id)
 
@@ -165,14 +166,15 @@ def export_csv(request):
 def export_landmarks_csv(request):
     tagged_articles = PubmedImportedArticle.objects.filter(landmark=True)
 
-    col_names = ['PMID', 'authors', 'year', 'month', 'title', 'tags']
+    col_names = ['PMID', 'authors', 'authors_etal', 'year', 'month', 'title', 'tags']
     data = []
     for ta in tagged_articles:
         tags = []
         [tags.append(t.tag.tag_name) for t in ta.articletag_set.all()]
         tags_str = ','.join(tags)
-        data.append([ta.pmid, ta.authors, ta.pub_date.year, ta.pub_date.month, ta.title, tags_str])
-    return build_csv_response(col_names, data)
+        authors_etal = ta.authors.split()[0] + " et al."
+        data.append([ta.pmid, ta.authors, authors_etal, ta.pub_date.year, ta.pub_date.month, ta.title, tags_str])
+    return build_csv_response(col_names, data, filename='soa-timeline.csv')
 
 
 def export_mendeley(request):

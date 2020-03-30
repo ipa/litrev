@@ -18,6 +18,14 @@
             {% endfor %}
           </td>
         </tr>
+        <tr>
+          <th></th>
+          <td>
+            {% for t in tags %}
+              {{ t.tag.tag_name }};
+            {% endfor %}
+          </td>
+        </tr>
       <br/>
       <!--
       <a href="{% url 'screening:process_article' article.id 'maybe' %}" class="btn btn-secondary" role="button" >Maybe</a>
