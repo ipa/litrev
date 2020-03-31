@@ -29,7 +29,7 @@ class Command(BaseCommand):
         print('importing {0}'.format(options['path']))
 
         file = os.path.normpath(options['path'])
-        df = pd.read_csv(file)
+        df = pd.read_csv(file, header=None)
 
         with open (options['search_function'], "r") as sf_file:
             search_function = sf_file.readlines()
@@ -43,7 +43,7 @@ class Command(BaseCommand):
         failed_ids = list()
 
         for index, record in tqdm(df.iterrows(), total=df.shape[0]):
-            pmid = record['Db']
+            pmid = record[0]
 
             find_pmid = PubmedImportedArticle.objects.filter(pmid=pmid)
             if len(find_pmid) > 0:
