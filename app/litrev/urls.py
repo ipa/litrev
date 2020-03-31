@@ -18,11 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import re_path
 
 urlpatterns = [
     path('screening/', include('screening.urls')),
     path('tagging/', include('tagging.urls')),
     path('admin/', admin.site.urls, name="admin"),
+    re_path(r'^celery-progress/', include('celery_progress.urls')),  # the endpoint is configurable
 ]
 
 urlpatterns += staticfiles_urlpatterns()

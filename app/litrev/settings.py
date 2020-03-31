@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq'
+CELERY_RESULT_BACKEND = "rpc"
 
 # Application definition
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'haystack',
+    'celery_progress',
     'screening.apps.ScreeningConfig',
     'base.apps.BaseConfig',
     'tagging.apps.TaggingConfig',
@@ -124,6 +127,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+ADMINS = (
+    ('admin', 'admin@litrev.local'),
+)
+ADMIN_USERNAME = 'admin'
+ADMIN_EMAIL = 'admin@litrev.local'
+ADMIN_INITIAL_PASSWORD = 'admin'
+
 
 
 # Internationalization
@@ -148,3 +158,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379

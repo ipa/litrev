@@ -9,7 +9,6 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from screening.models import PubmedImport, PubmedImportedArticle
 
-
 class Command(BaseCommand):
     help = ''
 
@@ -69,6 +68,8 @@ class Command(BaseCommand):
                 pia.pubmed_url = publication.pubmed_url
                 pia.abstract = repr(publication.abstract)
                 pia.screened = False
+                pia.tagged = False
+                pia.landmark = False
                 pia.pmimport = import_record
                 pia.save()
             except:

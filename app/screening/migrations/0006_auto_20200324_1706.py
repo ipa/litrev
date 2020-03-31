@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('screening', '0005_pubmedimportedarticle_tagged'),
+        ('tagging', '0001_initial')
     ]
 
     operations = [

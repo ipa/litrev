@@ -7,7 +7,6 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from screening.models import PubmedImport, PubmedImportedArticle
 
-
 class Command(BaseCommand):
     help = ''
 

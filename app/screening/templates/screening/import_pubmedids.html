@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+
+{% load static %}
+
+{% block content %}
+
+<script src="{% static 'celery_progress/celery_progress.js' %}">
+
+</script>
+
+<script>
+  // vanilla JS version
+  document.addEventListener("DOMContentLoaded", function () {
+    var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+    CeleryProgressBar.initProgressBar(progressUrl);
+  });
+</script>
+
+<h1>Import PubmedIDs</h1>
+
+<form class="form-inline" action="{% url 'screening:import_pubmedids_view' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group mx-sm-3  mb-2">
+    <label for="pmid" class="sr-only">PMID: </label>
+    <textarea id="pmid" type="text" name="pmid" class="form-control" placeholder="PubMed ID"></textarea>
+  </div>
+  <div class="form-group mx-sm-3  mb-2">
+    <label for="search_function" class="sr-only">PMID: </label>
+    <textarea id="search_function" type="text" name="search_function" class="form-control" placeholder="Search Function"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Import</button>
+</form>
+
+
+<div class='progress-wrapper'>
+  <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+</div>
+<div id="progress-bar-message">Waiting for progress to start...</div>
+
+<div id="celery-result"></div>
+
+
+{% endblock %}

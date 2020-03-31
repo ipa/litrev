@@ -3,7 +3,8 @@
     "model": "tagging.taggroup",
     "pk": 1,
     "fields": {
-      "group_name": "None"
+      "group_name": "None",
+      "enabled": "False"
     }
   }
 ]

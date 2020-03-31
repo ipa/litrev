@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from random import randint
 from haystack.utils.highlighting import Highlighter
 from screening.utils.highlighter import LitrevHighlighter
-
+from .tasks import import_pubmedids
+from .forms import ImportPubmedidsForm
 
 def __highlight_text(text, highlights, css_class):
     keywords = list()
@@ -64,3 +65,31 @@ def process_article(request, id=0, action=''):
         article_status.save()
 
     return redirect('screening:index')
+
+def import_pubmedids_view(request):
+    task_id = None
+    form = None
+    if request.method == 'POST':
+        form = ImportPubmedidsForm(request.POST)
+        if form.is_valid():
+            pmids = form.data['pmid']
+            search_function = form.data['search_function']
+            print(pmids)
+            result = import_pubmedids.delay(pmids, search_function)
+            task_id = result.task_id
+            # pmid = form.cleaned_data['pmid']
+            # print(pmid)
+            # article = PubmedImportedArticle.objects.get(pmid=pmid)
+            # print(article)
+            # article.landmark = True
+            # article.save()
+    else:
+        form = ImportPubmedidsForm()
+        task_id = None
+
+    data = {
+        'task_id': task_id,
+        'form': form
+    }
+
+    return render(request, 'screening/import_pubmedids.html', context=data)
