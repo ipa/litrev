@@ -8,9 +8,12 @@ services:
              supervisord &&
              supervisorctl status celery &&
              gunicorn litrev.wsgi:application --bind 0.0.0.0:8000 --workers 2"
-    # volumes:
-     # - ./tmp_app:/opt/app
+    volumes:
+      - db-data:/opt/db/data
     ports:
      - "8000:8000"
   rabbitmq:
     image: rabbitmq
+
+volumes:
+  db-data:
