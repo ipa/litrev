@@ -1,3 +1,7 @@
+![Django CI](https://github.com/ipa/litrev/workflows/Django%20CI/badge.svg)
+
+# Literature Review
+
 Quick and dirty database for literature review:
 
 * Import PubMed search
@@ -5,7 +9,6 @@ Quick and dirty database for literature review:
 * Add tags to articles
 * Export articles and tags to Mendeley
 
-Pubmed import
-=============
+## Pubmed import
 
 python manage.py import_from_pubmed --path "pubmed_result.csv" --search_function "search_function.txt"
