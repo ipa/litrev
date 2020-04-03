@@ -1,4 +1,4 @@
-![Django CI](https://github.com/ipa/litrev/workflows/Django%20CI/badge.svg)
+![Django CI](https://github.com/ipa/litrev/workflows/Django%20CI/badge.svg) ![Docker](https://github.com/ipa/litrev/workflows/Docker/badge.svg)
 
 # Literature Review
 
