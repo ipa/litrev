@@ -28,6 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
       working-directory: ${{ env.working-directory }}
+    - name: Run Migrations
+      run: |
+        python manage.py migrate
+      working-directory: ${{ env.working-directory }}
     - name: Run Tests
       run: |
         python manage.py test
