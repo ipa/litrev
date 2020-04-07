@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  web:
+    image: iwanpaolucci/litrev_web
+    build: app
+    command: >
+      sh -c "python manage.py migrate &&
+             supervisord &&
+             supervisorctl status celery &&
+             gunicorn litrev.wsgi:application --bind 0.0.0.0:8000 --workers 2"
+    volumes:
+      - db-data:/opt/db/data
+    ports:
+     - "8000:8000"
+  rabbitmq:
+    image: rabbitmq
+
+volumes:
+  db-data:

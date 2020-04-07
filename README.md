@@ -4,11 +4,21 @@
 
 Quick and dirty database for literature review:
 
-* Import PubMed search
+* Import PubMed search by list of Pubmed ids
 * Screen for relevant articles
 * Add tags to articles
-* Export articles and tags to Mendeley
+* Export articles and tags to Mendeley / Zotero / Endnote
 
-## Pubmed import
+!! Under construction !!
 
-python manage.py import_from_pubmed --path "pubmed_result.csv" --search_function "search_function.txt"
+## Installation
+
+The easiest way is to use docker
+
+### As Docker App
+
+docker app install iwanpaolucci/litrev:0.1
+
+### As local docker app
+
+docker-compose up -d
