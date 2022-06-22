@@ -17,7 +17,7 @@ gunicorn==20.0.4
 idna==2.9
 importlib-metadata==1.6.0
 kombu==4.6.8
-numpy==1.18.2
+numpy==1.22.0
 pandas==1.0.3
 pathtools==0.1.2
 pefile==2019.4.18
