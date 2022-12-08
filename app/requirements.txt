@@ -5,7 +5,7 @@ billiard==3.6.3.0
 biopython==1.76
 celery==4.4.2
 celery-progress==0.0.9
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 construct==2.5.3
 Django==3.0.7
